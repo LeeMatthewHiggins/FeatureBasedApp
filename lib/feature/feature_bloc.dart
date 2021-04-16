@@ -83,6 +83,7 @@ class FeatureBloc extends StateNotifier<FeatureViewModel>
 
   @override
   FeatureViewModel transform(Feature object, {String? identifier}) {
+    assert(identifier != null, 'Feature should have a valid identifier');
     final uri = identifier!;
     return FeatureViewModel(
       uri: uri,
