@@ -23,7 +23,7 @@ class CatPurchaseBloc extends StateNotifier<CatPurchaseViewModel> {
   }
 
   void setup() async {
-    _update(0x00000000);
+    _update(_balance);
   }
 
   void _update(int amount) {
@@ -34,7 +34,7 @@ class CatPurchaseBloc extends StateNotifier<CatPurchaseViewModel> {
     state = CatPurchaseViewModel(
       asyncStatus: AsyncInfo.complete(),
       purchaseCats: _purchaseCats,
-      balance: _balance,
+      balance: amount,
       displayBalance: displayBalance,
     );
   }
