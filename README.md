@@ -32,9 +32,9 @@ They can be thought of as mini apps
 
 There are two factories/libraries:
 
-A *widget libaray*, which can build widgets given a feature type.
+A *widget library*, which can build widgets given a feature type.
 
-A *provider libaray*, which can build providers given a type (viewmodel type) and a context.
+A *provider library*, which can build providers given a type (viewmodel type) and a context.
 
 Features are resolved using a FeatureResolver widget, this uses the libraries above to build the feature.
 

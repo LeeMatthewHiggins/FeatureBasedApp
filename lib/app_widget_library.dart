@@ -1,6 +1,3 @@
-
-
-
 import 'package:flutter/material.dart';
 import 'package:feature_based_app/feature/feature_list_description_page.dart';
 import 'package:feature_based_app/feature/feature_widget_library.dart';
