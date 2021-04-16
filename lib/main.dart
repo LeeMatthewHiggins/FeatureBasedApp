@@ -1,16 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:feature_based_app/app_provider_library.dart';
-import 'package:feature_based_app/common/cast_utilities.dart';
-import 'package:feature_based_app/feature/feature_bloc.dart';
-import 'package:feature_based_app/feature/feature_list_bloc.dart';
-import 'package:feature_based_app/feature/feature_list_viewmodel.dart';
 import 'package:feature_based_app/feature/feature_resolver.dart';
-import 'package:feature_based_app/feature/feature_viewmodel.dart';
-import 'package:feature_based_app/features/cat_purchase/cat_purchase_bloc.dart';
-import 'package:feature_based_app/features/cat_purchase/cat_purchase_viewmodel.dart';
-import 'package:feature_based_app/features/rainbow_block/rainbow_block_bloc.dart';
-import 'package:feature_based_app/features/rainbow_block/rainbow_block_viewmodel.dart';
+
 
 final rootFeatureUri = 'features/faywVslr8RLHEN72JOXw';
 void main() {
@@ -32,35 +24,6 @@ class MyApp extends StatelessWidget {
               home: FeatureResolver(rootFeatureUri),
             );
   }
-}
-
-void registerGlobalProviders() {
-  globalFeatureLibrary.registerProvider<FeatureViewModel>((Object? context) {
-    final uri = castAssert<String>(context);
-    return FeatureBloc.provider(
-      uri,
-      jsonFeatureRepo,
-    );
-  });
-
-  globalFeatureLibrary
-      .registerProvider<FeatureListViewModel>((Object? context) {
-    final uri = castAssert<String>(context);
-    return FeatureListBloc.provider(
-      uri,
-      jsonFeatureRepo,
-    );
-  });
-
-  globalFeatureLibrary
-      .registerProvider<RainbowBlockViewModel>((Object? context) {
-    return RainbowBlockBloc.provider();
-  });
-
-  globalFeatureLibrary
-      .registerProvider<CatPurchaseViewModel>((Object? context) {
-    return CatPurchaseBloc.provider();
-  });
 }
 
 /*class MyFilebaseApp extends StatelessWidget {
