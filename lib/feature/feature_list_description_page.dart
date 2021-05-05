@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:feature_based_app/feature/feature_description_view.dart';
-import 'package:feature_based_app/feature/feature_sliver_list.dart';
+import 'package:feature_based_app/features/list/feature_sliver_list.dart';
 
 class FeatureListDescriptionPage extends StatelessWidget {
   final String uri;
@@ -11,11 +11,14 @@ class FeatureListDescriptionPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        body: CustomScrollView(slivers: <Widget>[
-      SliverToBoxAdapter(
-        child: FeatureDescriptionView(uri),
+      body: CustomScrollView(
+        slivers: <Widget>[
+          SliverToBoxAdapter(
+            child: FeatureDescriptionView(uri),
+          ),
+          FeatureSliverList(uri),
+        ],
       ),
-      FeatureSliverList(uri),
-    ]));
+    );
   }
 }

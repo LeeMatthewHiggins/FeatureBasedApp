@@ -1,28 +1,25 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:feature_based_app/app_provider_library.dart';
-import 'package:feature_based_app/feature/feature_resolver.dart';
-
+import 'package:feature_based_app/global_providers.dart';
+import 'package:feature_based_app/feature/feature_builder.dart';
 
 final rootFeatureUri = 'features/faywVslr8RLHEN72JOXw';
 void main() {
   WidgetsFlutterBinding.ensureInitialized();
   registerGlobalProviders();
-  runApp(ProviderScope(child: MyApp()));
+  runApp(MyApp());
 }
 
 class MyApp extends StatelessWidget {
-
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-              title: 'Flutter Demo',
-              theme: ThemeData(
-                textTheme: TextTheme(),
-                primarySwatch: Colors.blue,
-              ),
-              home: FeatureResolver(rootFeatureUri),
-            );
+      title: 'Flutter Demo',
+      theme: ThemeData(
+        textTheme: TextTheme(),
+        primarySwatch: Colors.blue,
+      ),
+      home: FeatureBuilder(rootFeatureUri),
+    );
   }
 }
 
@@ -50,4 +47,3 @@ class MyApp extends StatelessWidget {
         });
   }
 }*/
-

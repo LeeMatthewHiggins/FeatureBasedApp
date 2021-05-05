@@ -14,7 +14,6 @@ class FeatureViewModel implements AsyncViewModel {
   final String type;
   final String title;
   final String subtitle;
-  
 
   const FeatureViewModel({
     this.uri = _Constants.unknown,
@@ -25,7 +24,10 @@ class FeatureViewModel implements AsyncViewModel {
     this.refresh,
   });
 
-  factory FeatureViewModel.error(Exception exception, Function refresh) {
+  factory FeatureViewModel.error(
+    Exception exception,
+    Function refresh,
+  ) {
     return FeatureViewModel(
       asyncStatus: AsyncInfo.error(exception),
       refresh: refresh,
