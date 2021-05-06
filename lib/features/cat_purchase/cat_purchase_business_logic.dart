@@ -1,4 +1,3 @@
-
 import 'package:feature_based_app/common/async_viewmodel.dart';
 import 'package:feature_based_app/features/cat_purchase/cat_purchase_viewmodel.dart';
 import 'package:flutter/foundation.dart';
@@ -8,7 +7,10 @@ class _Constants {
 }
 
 class CatPurchaseBusinessLogic extends ValueNotifier<CatPurchaseViewModel> {
-  CatPurchaseBusinessLogic() : super(CatPurchaseViewModel()) {
+  CatPurchaseBusinessLogic()
+      : super(
+          CatPurchaseViewModel(),
+        ) {
     setup();
   }
 
@@ -38,5 +40,4 @@ class CatPurchaseBusinessLogic extends ValueNotifier<CatPurchaseViewModel> {
     _balance += amount;
     _update(_balance);
   }
-
 }

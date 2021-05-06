@@ -2,7 +2,6 @@ import 'package:feature_based_app/common/repository/transformer.dart';
 import 'package:feature_based_app/common/cast_utilities.dart';
 import 'package:feature_based_app/feature/feature_model.dart';
 
-
 class _Constants {
   static const title = 'title';
   static const subtitle = 'subtitle';
@@ -13,7 +12,10 @@ class _Constants {
 class FeatureTransformer
     implements Transformer<Map<String, dynamic>, Feature, String> {
   @override
-  Feature transform(Map<String, dynamic> data, {String? identifier}) {
+  Feature transform(
+    Map<String, dynamic> data, {
+    String? identifier,
+  }) {
     final uri = castAssert<String>(identifier);
     return Feature(
       uri,

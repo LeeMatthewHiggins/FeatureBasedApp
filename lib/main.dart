@@ -1,3 +1,4 @@
+import 'package:feature_based_app/global_widgets.dart';
 import 'package:flutter/material.dart';
 import 'package:feature_based_app/global_providers.dart';
 import 'package:feature_based_app/feature/feature_builder.dart';
@@ -6,6 +7,7 @@ final rootFeatureUri = 'features/faywVslr8RLHEN72JOXw';
 void main() {
   WidgetsFlutterBinding.ensureInitialized();
   registerGlobalProviders();
+  registerGlobalWidgets();
   runApp(MyApp());
 }
 

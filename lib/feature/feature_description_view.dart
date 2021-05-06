@@ -5,7 +5,7 @@ import 'feature_viewmodel.dart';
 
 class FeatureDescriptionView extends AsyncViewModelWidget<FeatureViewModel> {
   final String uri;
-  FeatureDescriptionView(this.uri)
+  FeatureDescriptionView({required this.uri})
       : super(
           uri,
         );

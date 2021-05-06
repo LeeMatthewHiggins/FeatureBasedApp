@@ -6,17 +6,17 @@ import 'provider_repository.dart';
 
 abstract class AsyncViewModelWidget<T extends AsyncViewModel>
     extends StatelessWidget {
-  final Object viewmodelContext;
+  final Object viewModelContext;
 
   AsyncViewModelWidget(
-    this.viewmodelContext,
+    this.viewModelContext,
   );
 
   @override
   Widget build(BuildContext context) {
     final repository = ProviderRepositoryScope.repositoryOf(context) ??
         ProviderRepository.global;
-    final provider = repository.providerOf<T>(context: viewmodelContext);
+    final provider = repository.providerOf<T>(context: viewModelContext);
     return ValueListenableBuilder<T>(
         valueListenable: provider,
         builder: (context, viewmodel, child) {

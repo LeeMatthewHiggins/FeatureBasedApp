@@ -13,10 +13,12 @@ class FeatureListDescriptionPage extends StatelessWidget {
     return Scaffold(
       body: CustomScrollView(
         slivers: <Widget>[
-          SliverToBoxAdapter(
-            child: FeatureDescriptionView(uri),
+          SliverSafeArea(
+            sliver: SliverToBoxAdapter(
+              child: FeatureDescriptionView(uri: uri),
+            ),
           ),
-          FeatureSliverList(uri),
+          FeatureSliverList(uri: uri),
         ],
       ),
     );

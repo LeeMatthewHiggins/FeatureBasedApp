@@ -1,4 +1,4 @@
-import 'package:feature_based_app/app_widget_factory.dart';
+import 'package:feature_based_app/common/widget_repository.dart';
 import 'package:feature_based_app/feature/feature_viewmodel.dart';
 import 'package:flutter/widgets.dart';
 import 'package:feature_based_app/common/async_viewmodel_widget.dart';
@@ -10,24 +10,21 @@ typedef FeatureWidgetBuilder = Widget Function(
 
 class FeatureBuilder extends AsyncViewModelWidget<FeatureViewModel> {
   final String uri;
-  late final FeatureWidgetBuilder widgetBuilder;
-  FeatureBuilder(
-    this.uri, {
-    FeatureWidgetBuilder? customWidgetBuilder,
-  }) : super(
+  FeatureBuilder(this.uri)
+      : super(
           uri,
-        ) {
-    widgetBuilder = customWidgetBuilder ?? globalWidgetBuilder;
-  }
+        );
 
   @override
   Widget successBuild(
     BuildContext context,
     FeatureViewModel viewmodel,
   ) {
-    return widgetBuilder(
-      viewmodel,
-      context,
+    final widgetRepository =
+        WidgetRepositoryScope.repositoryOf(context) ?? WidgetRepository.global;
+    return widgetRepository.widgetFor(
+      type: viewmodel.type,
+      context: viewmodel.uri,
     );
   }
 
