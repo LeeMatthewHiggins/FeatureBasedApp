@@ -1,41 +1,63 @@
 {
-    "features/faywVslr8RLHEN72JOXw": {
+    "features/000001": {
         "title": "First JSON Feature",
         "subtitle": "testing",
         "type": "list",
         "config": {
             "subFeatures": [
-                "features/faywVslr8RLHEN72JOXw.subfeature1",
-                "features/faywVslr8RLHEN72JOXw.subfeature2",
-                "features/faywVslr8RLHEN72JOXw.subfeature3",
-                "features/faywVslr8RLHEN72JOXw.subfeature4",
-                "features/faywVslr8RLHEN72JOXw.subfeature5"
+                "features/000001.subfeature1",
+                "features/000001.subfeature2",
+                "features/000001.subfeature3",
+                "features/000001.subfeature4",
+                "features/000001.subfeature5",
+                "features/000002"
             ]
         }
     },
-    "features/faywVslr8RLHEN72JOXw.subfeature1": {
+    "features/000001.subfeature1": {
         "title": "Subfeature 1",
         "subtitle": "Subfeature",
         "type": "test"
     },
-    "features/faywVslr8RLHEN72JOXw.subfeature2": {
+    "features/000001.subfeature2": {
         "title": "Subfeature 2",
         "subtitle": "Subfeature",
         "type": "test"
     },
-    "features/faywVslr8RLHEN72JOXw.subfeature3": {
+    "features/000001.subfeature3": {
         "title": "Subfeature 3",
         "subtitle": "Subfeature",
         "type": "rainbow"
     },
-    "features/faywVslr8RLHEN72JOXw.subfeature4": {
+    "features/000001.subfeature4": {
         "title": "Subfeature 4",
         "subtitle": "Subfeature",
         "type": "cats"
     },
-    "features/faywVslr8RLHEN72JOXw.subfeature5": {
+    "features/000001.subfeature5": {
         "title": "Unimplemented feature",
         "subtitle": "Subfeature",
         "type": "Unimplemented"
+    },
+    "features/000002": {
+        "title": "First AB test Feature",
+        "subtitle": "testing",
+        "type": "variant",
+        "config": {
+            "variants": {
+                "a":"features/000002.a",
+                "b":"features/000002.b"
+            }
+        }
+    },
+    "features/000002.a": {
+        "title": "Variant  A",
+        "subtitle": "a/b test",
+        "type": "test"
+    },
+    "features/000002.b": {
+        "title": "Variant  B",
+        "subtitle": "a/b test",
+        "type": "test"
     }
 }

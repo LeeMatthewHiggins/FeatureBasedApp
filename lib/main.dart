@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:feature_based_app/global_providers.dart';
 import 'package:feature_based_app/feature/feature_builder.dart';
 
-final rootFeatureUri = 'features/faywVslr8RLHEN72JOXw';
+final rootFeatureUri = 'features/000001';
 void main() {
   WidgetsFlutterBinding.ensureInitialized();
   registerGlobalProviders();

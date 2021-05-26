@@ -1,5 +1,7 @@
 import 'package:feature_based_app/common/repository/imp/json_bundle_repository.dart';
 import 'package:feature_based_app/feature/feature_transformer.dart';
+import 'package:feature_based_app/features/variant/feature_variant_business_logic.dart';
+import 'package:feature_based_app/features/variant/feature_variant_viewmodel.dart';
 import 'common/cast_utilities.dart';
 import 'common/provider_repository.dart';
 import 'feature/feature_business_logic.dart';
@@ -51,6 +53,16 @@ void registerGlobalProviders() {
   ProviderRepository.global.registerProviderBuilder<CatPurchaseViewModel>(
     (Object? context) {
       return CatPurchaseBusinessLogic();
+    },
+  );
+
+  ProviderRepository.global.registerProviderBuilder<FeatureVariantViewModel>(
+    (Object? context) {
+      final uri = castAssert<String>(context);
+      return FeatureVariantBusinessLogic(
+        uri,
+        jsonFeatureRepo,
+      );
     },
   );
 }
