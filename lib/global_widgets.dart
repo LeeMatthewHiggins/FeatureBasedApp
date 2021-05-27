@@ -2,8 +2,12 @@ import 'package:feature_based_app/common/widget_repository.dart';
 import 'package:feature_based_app/feature/feature_list_description_page.dart';
 import 'package:feature_based_app/feature/feature_description_view.dart';
 import 'package:feature_based_app/features/cat_purchase/cat_purchase_view.dart';
-import 'package:feature_based_app/features/feature_ab_test/feature_test.dart';
+import 'package:feature_based_app/features/fork/fork.dart';
 import 'package:feature_based_app/features/rainbow/rainbow_view.dart';
+
+String _ABTestVariant(String uri) {
+  return 'b';
+}
 
 void registerGlobalWidgets() {
   WidgetRepository.global.registerDefaultWidgetBuilder(
@@ -26,9 +30,10 @@ void registerGlobalWidgets() {
     ),
   );
   WidgetRepository.global.registerWidgetBuilder(
-    'variant',
-    (context) => FeatureTest(
+    'ab_test',
+    (context) => Fork(
       uri: context as String,
+      getVariant: _ABTestVariant,
     ),
   );
 }

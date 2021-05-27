@@ -5,7 +5,7 @@ class _Constants {
   static const emptyString = '';
 }
 
-class FeatureTestViewModel implements AsyncViewModel {
+class ForkViewModel implements AsyncViewModel {
   @override
   final AsyncInfo asyncStatus;
   @override
@@ -15,14 +15,14 @@ class FeatureTestViewModel implements AsyncViewModel {
   final String? subtitle;
   final Map<String, String> variants;
 
-  factory FeatureTestViewModel.error(Exception exception, Function refresh) {
-    return FeatureTestViewModel(
+  factory ForkViewModel.error(Exception exception, Function refresh) {
+    return ForkViewModel(
       asyncStatus: AsyncInfo.error(exception),
       refresh: refresh,
     );
   }
 
-  FeatureTestViewModel({
+  ForkViewModel({
     this.asyncStatus = const AsyncInfo(),
     this.refresh,
     this.uri =  _Constants.unknown,

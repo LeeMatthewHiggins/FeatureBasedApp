@@ -6,7 +6,7 @@ import 'package:feature_based_app/common/repository/repository.dart';
 import 'package:feature_based_app/common/repository/transformer.dart';
 import 'package:feature_based_app/feature/feature_model.dart';
 import 'package:feature_based_app/feature/feature_transformer.dart';
-import 'package:feature_based_app/features/feature_ab_test/feature_test_viewmodel.dart';
+import 'package:feature_based_app/features/fork/fork_viewmodel.dart';
 import 'package:flutter/widgets.dart';
 
 class _Constants {
@@ -14,15 +14,15 @@ class _Constants {
 }
 
 class _Fields {
-  static const variantFeatures = 'variants';
+  static const variants = 'variants';
 }
 
-class FeatureTestBusinessLogic extends ValueNotifier<FeatureTestViewModel>
-    implements Transformer<Feature, FeatureTestViewModel, String> {
-  FeatureTestBusinessLogic(
+class ForkBusinessLogic extends ValueNotifier<ForkViewModel>
+    implements Transformer<Feature, ForkViewModel, String> {
+  ForkBusinessLogic(
     this.uri,
     this.repository,
-  ) : super(FeatureTestViewModel()) {
+  ) : super(ForkViewModel()) {
     setup();
   }
 
@@ -69,7 +69,7 @@ class FeatureTestBusinessLogic extends ValueNotifier<FeatureTestViewModel>
     Exception? exception,
   }) {
     if (exception != null) {
-      value = FeatureTestViewModel.error(exception, () => refresh);
+      value = ForkViewModel.error(exception, () => refresh);
     } else if (feature != null) {
       value = transform(
         feature,
@@ -79,16 +79,16 @@ class FeatureTestBusinessLogic extends ValueNotifier<FeatureTestViewModel>
   }
 
   @override
-  FeatureTestViewModel transform(
+  ForkViewModel transform(
     Feature object, {
     String? identifier,
   }) {
     final uri = identifier!;
     final variants = castOrNull<Map<String, dynamic>>(
-            object.config[_Fields.variantFeatures]) ??
+            object.config[_Fields.variants]) ??
         {};
     final variantFeatures = Map<String, String>.from(variants);
-    return FeatureTestViewModel(
+    return ForkViewModel(
       uri: uri,
       title: object.title ?? _Constants.emptyString,
       subtitle: object.subtitle ?? _Constants.emptyString,

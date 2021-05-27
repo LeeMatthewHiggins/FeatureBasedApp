@@ -42,7 +42,7 @@
     "features/000002": {
         "title": "First AB test Feature",
         "subtitle": "testing",
-        "type": "variant",
+        "type": "ab_test",
         "config": {
             "variants": {
                 "a":"features/000002.a",
