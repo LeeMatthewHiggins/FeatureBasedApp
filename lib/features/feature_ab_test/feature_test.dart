@@ -2,19 +2,19 @@ import 'package:flutter/material.dart';
 import 'package:feature_based_app/common/async_viewmodel_widget.dart';
 import 'package:feature_based_app/feature/feature_builder.dart';
 
-import 'feature_variant_viewmodel.dart';
+import 'feature_test_viewmodel.dart';
 
-class FeatureVariant extends AsyncViewModelWidget<FeatureVariantViewModel> {
+class FeatureTest extends AsyncViewModelWidget<FeatureTestViewModel> {
   final String uri;
   final String _variant = 'a'; //TODO: add a function to get Variant
   late final FeatureWidgetBuilder widgetBuilder;
 
-  FeatureVariant({required this.uri}) : super(uri);
+  FeatureTest({required this.uri}) : super(uri);
 
   @override
   Widget errorBuild(
     BuildContext context,
-    FeatureVariantViewModel viewmodel,
+    FeatureTestViewModel viewmodel,
   ) {
     throw UnimplementedError();
   }
@@ -22,7 +22,7 @@ class FeatureVariant extends AsyncViewModelWidget<FeatureVariantViewModel> {
   @override
   Widget successBuild(
     BuildContext context,
-    FeatureVariantViewModel viewmodel,
+    FeatureTestViewModel viewmodel,
   ) {
         final defaultVariant = viewmodel
             .variants.entries.first.value; //TODO: better way to do this
@@ -32,7 +32,7 @@ class FeatureVariant extends AsyncViewModelWidget<FeatureVariantViewModel> {
   @override
   Widget pendingBuild(
     BuildContext context,
-    FeatureVariantViewModel viewmodel,
+    FeatureTestViewModel viewmodel,
   ) {
     return Center(child: CircularProgressIndicator());
   }

@@ -6,7 +6,7 @@ import 'package:feature_based_app/common/repository/repository.dart';
 import 'package:feature_based_app/common/repository/transformer.dart';
 import 'package:feature_based_app/feature/feature_model.dart';
 import 'package:feature_based_app/feature/feature_transformer.dart';
-import 'package:feature_based_app/features/variant/feature_variant_viewmodel.dart';
+import 'package:feature_based_app/features/feature_ab_test/feature_test_viewmodel.dart';
 import 'package:flutter/widgets.dart';
 
 class _Constants {
@@ -17,12 +17,12 @@ class _Fields {
   static const variantFeatures = 'variants';
 }
 
-class FeatureVariantBusinessLogic extends ValueNotifier<FeatureVariantViewModel>
-    implements Transformer<Feature, FeatureVariantViewModel, String> {
-  FeatureVariantBusinessLogic(
+class FeatureTestBusinessLogic extends ValueNotifier<FeatureTestViewModel>
+    implements Transformer<Feature, FeatureTestViewModel, String> {
+  FeatureTestBusinessLogic(
     this.uri,
     this.repository,
-  ) : super(FeatureVariantViewModel()) {
+  ) : super(FeatureTestViewModel()) {
     setup();
   }
 
@@ -69,7 +69,7 @@ class FeatureVariantBusinessLogic extends ValueNotifier<FeatureVariantViewModel>
     Exception? exception,
   }) {
     if (exception != null) {
-      value = FeatureVariantViewModel.error(exception, () => refresh);
+      value = FeatureTestViewModel.error(exception, () => refresh);
     } else if (feature != null) {
       value = transform(
         feature,
@@ -79,7 +79,7 @@ class FeatureVariantBusinessLogic extends ValueNotifier<FeatureVariantViewModel>
   }
 
   @override
-  FeatureVariantViewModel transform(
+  FeatureTestViewModel transform(
     Feature object, {
     String? identifier,
   }) {
@@ -88,7 +88,7 @@ class FeatureVariantBusinessLogic extends ValueNotifier<FeatureVariantViewModel>
             object.config[_Fields.variantFeatures]) ??
         {};
     final variantFeatures = Map<String, String>.from(variants);
-    return FeatureVariantViewModel(
+    return FeatureTestViewModel(
       uri: uri,
       title: object.title ?? _Constants.emptyString,
       subtitle: object.subtitle ?? _Constants.emptyString,

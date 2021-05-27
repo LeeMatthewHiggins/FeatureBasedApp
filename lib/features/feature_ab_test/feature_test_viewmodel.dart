@@ -5,7 +5,7 @@ class _Constants {
   static const emptyString = '';
 }
 
-class FeatureVariantViewModel implements AsyncViewModel {
+class FeatureTestViewModel implements AsyncViewModel {
   @override
   final AsyncInfo asyncStatus;
   @override
@@ -15,14 +15,14 @@ class FeatureVariantViewModel implements AsyncViewModel {
   final String? subtitle;
   final Map<String, String> variants;
 
-  factory FeatureVariantViewModel.error(Exception exception, Function refresh) {
-    return FeatureVariantViewModel(
+  factory FeatureTestViewModel.error(Exception exception, Function refresh) {
+    return FeatureTestViewModel(
       asyncStatus: AsyncInfo.error(exception),
       refresh: refresh,
     );
   }
-  
-  FeatureVariantViewModel({
+
+  FeatureTestViewModel({
     this.asyncStatus = const AsyncInfo(),
     this.refresh,
     this.uri =  _Constants.unknown,

@@ -1,7 +1,7 @@
 import 'package:feature_based_app/common/repository/imp/json_bundle_repository.dart';
 import 'package:feature_based_app/feature/feature_transformer.dart';
-import 'package:feature_based_app/features/variant/feature_variant_business_logic.dart';
-import 'package:feature_based_app/features/variant/feature_variant_viewmodel.dart';
+import 'package:feature_based_app/features/feature_ab_test/feature_test_business_logic.dart';
+import 'package:feature_based_app/features/feature_ab_test/feature_test_viewmodel.dart';
 import 'common/cast_utilities.dart';
 import 'common/provider_repository.dart';
 import 'feature/feature_business_logic.dart';
@@ -56,10 +56,10 @@ void registerGlobalProviders() {
     },
   );
 
-  ProviderRepository.global.registerProviderBuilder<FeatureVariantViewModel>(
+  ProviderRepository.global.registerProviderBuilder<FeatureTestViewModel>(
     (Object? context) {
       final uri = castAssert<String>(context);
-      return FeatureVariantBusinessLogic(
+      return FeatureTestBusinessLogic(
         uri,
         jsonFeatureRepo,
       );

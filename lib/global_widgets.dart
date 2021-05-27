@@ -2,8 +2,8 @@ import 'package:feature_based_app/common/widget_repository.dart';
 import 'package:feature_based_app/feature/feature_list_description_page.dart';
 import 'package:feature_based_app/feature/feature_description_view.dart';
 import 'package:feature_based_app/features/cat_purchase/cat_purchase_view.dart';
+import 'package:feature_based_app/features/feature_ab_test/feature_test.dart';
 import 'package:feature_based_app/features/rainbow/rainbow_view.dart';
-import 'package:feature_based_app/features/variant/feature_variant.dart';
 
 void registerGlobalWidgets() {
   WidgetRepository.global.registerDefaultWidgetBuilder(
@@ -27,7 +27,7 @@ void registerGlobalWidgets() {
   );
   WidgetRepository.global.registerWidgetBuilder(
     'variant',
-    (context) => FeatureVariant(
+    (context) => FeatureTest(
       uri: context as String,
     ),
   );
