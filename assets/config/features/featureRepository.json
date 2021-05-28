@@ -2,7 +2,7 @@
     "features/000001": {
         "title": "First JSON Feature",
         "subtitle": "testing",
-        "type": "list",
+        "type": "pageList",
         "config": {
             "subFeatures": [
                 "features/000001.subfeature1",
@@ -10,7 +10,8 @@
                 "features/000001.subfeature3",
                 "features/000001.subfeature4",
                 "features/000001.subfeature5",
-                "features/000002"
+                "features/000002",
+                "features/000003"
             ]
         }
     },
@@ -59,5 +60,16 @@
         "title": "Variant  B",
         "subtitle": "a/b test",
         "type": "test"
+    },
+    "features/000003": {
+        "title": "First JSON Feature",
+        "subtitle": "testing",
+        "type": "list",
+        "config": {
+            "subFeatures": [
+                "features/000001.subfeature1",
+                "features/000001.subfeature2"
+            ]
+        }
     }
 }
