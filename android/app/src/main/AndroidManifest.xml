@@ -1,7 +1,7 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="com.example.riverpod_test">
+    package="com.example.feature_based_app">
    <application
-        android:label="riverpod_test"
+        android:label="feature_based_app"
         android:icon="@mipmap/ic_launcher">
         <activity
             android:name=".MainActivity"
