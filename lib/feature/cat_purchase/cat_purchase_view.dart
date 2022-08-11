@@ -1,8 +1,7 @@
-
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:feature_based_app/common/async_viewmodel_widget.dart';
-import 'package:feature_based_app/features/cat_purchase/cat_purchase_viewmodel.dart';
+import 'package:feature_based_app/feature/cat_purchase/cat_purchase_viewmodel.dart';
 
 class CatShopView extends AsyncViewModelWidget<CatPurchaseViewModel> {
   CatShopView() : super('none');

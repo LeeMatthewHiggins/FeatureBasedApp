@@ -1,5 +1,7 @@
 import 'dart:convert';
 
+import 'package:feature_based_app/common/repository/paged.dart';
+import 'package:feature_based_app/feature_based_app.dart';
 import 'package:flutter/services.dart' show rootBundle;
 import 'package:feature_based_app/common/cast_utilities.dart';
 import 'package:feature_based_app/common/repository/repository.dart';
@@ -10,14 +12,16 @@ class _Constants {
   static const errorNotFound = 'JsonRepository failed to find entry';
 }
 
-class JsonBundleRepository<T> implements Repository<T> {
+class JsonBundleRepository<T extends Identifiable> implements Repository<T> {
   final String path;
+  final String tagFieldName;
   final Transformer<Map<String, dynamic>, T, String> transformer;
   Map<String, dynamic>? _jsonMap;
 
   JsonBundleRepository({
     required this.path,
     required this.transformer,
+    this.tagFieldName = 'tags',
   });
 
   Future<void> initilise() async {
@@ -37,7 +41,7 @@ class JsonBundleRepository<T> implements Repository<T> {
   }
 
   @override
-  Future<T> single(String uri) async {
+  Future<T> single(String uri, {T? defaultObject}) async {
     await initilise();
     final json = _jsonMap![uri];
     if (json != null) {
@@ -55,7 +59,40 @@ class JsonBundleRepository<T> implements Repository<T> {
   }
 
   @override
+  Future<List<T>> collection(List<String> uris) {
+    return Future.wait(
+      uris.map(
+        (uri) => single(uri),
+      ),
+    );
+  }
+
+  @override
   Stream<T> stream(String uri) {
     return Stream.empty();
+  }
+
+  @override
+  AsyncList<T> matching({
+    required Map<String, bool?> tags,
+    SortType sortBy = SortType.None,
+  }) {
+    // TODO: implement matching
+    throw UnimplementedError();
+  }
+
+  @override
+  Future<T> update(String? uri, T data) {
+    throw Exception('This repository is read only');
+  }
+
+  @override
+  Stream<List<T>> streamCollection(List<String> uris) {
+    return Stream<List<T>>.empty();
+  }
+
+  @override
+  Future<void> remove(String uri) {
+    throw Exception('This repository is read only');
   }
 }

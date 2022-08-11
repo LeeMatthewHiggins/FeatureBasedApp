@@ -1,18 +1,20 @@
-import 'package:feature_based_app/features/fork/fork_viewmodel.dart';
+import 'package:feature_based_app/feature/fork/fork_viewmodel.dart';
 import 'package:flutter/material.dart';
 import 'package:feature_based_app/common/async_viewmodel_widget.dart';
 import 'package:feature_based_app/feature/feature_builder.dart';
 
-typedef VariantFunction = String Function(String uri);
+typedef VariantFunction = Future<String> Function(BuildContext context);
 
 class Fork extends AsyncViewModelWidget<ForkViewModel> {
   final String uri;
+  final FeatureEmbedType embedType;
   final VariantFunction getVariant;
   late final FeatureWidgetBuilder widgetBuilder;
 
   Fork({
     required this.uri,
     required this.getVariant,
+    this.embedType = FeatureEmbedType.view,
   }) : super(uri);
 
   @override
@@ -30,8 +32,17 @@ class Fork extends AsyncViewModelWidget<ForkViewModel> {
   ) {
     final defaultVariant =
         viewmodel.variants.entries.first.value; //TODO: better way to do this
-    return FeatureBuilder(
-        viewmodel.variants[getVariant(viewmodel.uri)] ?? defaultVariant);
+    return FutureBuilder<String>(
+        future: getVariant(context),
+        builder: (context, snapshot) {
+          if (snapshot.hasData) {
+            return FeatureBuilder(
+              uri: viewmodel.variants[snapshot.data] ?? defaultVariant,
+              embedType: embedType,
+            );
+          }
+          return pendingBuild(context, viewmodel);
+        });
   }
 
   @override

@@ -5,7 +5,8 @@ import 'feature_viewmodel.dart';
 
 class FeatureDescriptionView extends AsyncViewModelWidget<FeatureViewModel> {
   final String uri;
-  FeatureDescriptionView({required this.uri})
+  final void Function()? onTap;
+  FeatureDescriptionView({required this.uri, this.onTap})
       : super(
           uri,
         );
@@ -22,6 +23,7 @@ class FeatureDescriptionView extends AsyncViewModelWidget<FeatureViewModel> {
       ),
       title: Text(viewmodel.title),
       subtitle: Text(viewmodel.subtitle),
+      onTap: onTap,
     );
   }
 

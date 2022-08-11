@@ -1,14 +1,12 @@
-import 'package:feature_based_app/features/list/feature_list_viewmodel.dart';
+import 'package:feature_based_app/feature/list/feature_list_viewmodel.dart';
 import 'package:flutter/material.dart';
 import 'package:feature_based_app/common/async_viewmodel_widget.dart';
 import 'package:feature_based_app/feature/feature_builder.dart';
 
 class FeatureSliverList extends AsyncViewModelWidget<FeatureListViewModel> {
   final String uri;
-  late final FeatureWidgetBuilder widgetBuilder;
 
-  FeatureSliverList(
-    {required this.uri}) : super(uri);
+  FeatureSliverList({required this.uri}) : super(uri);
 
   @override
   Widget errorBuild(
@@ -27,7 +25,8 @@ class FeatureSliverList extends AsyncViewModelWidget<FeatureListViewModel> {
         delegate: SliverChildBuilderDelegate(
       (BuildContext context, int index) {
         return FeatureBuilder(
-          viewmodel.subFeatures[index]
+          uri: viewmodel.subFeatures[index],
+          embedType: FeatureEmbedType.view,
         );
       },
       childCount: viewmodel.subFeatures.length,

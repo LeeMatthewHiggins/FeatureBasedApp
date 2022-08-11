@@ -5,7 +5,7 @@ class _Constants {
   static const emptyString = '';
 }
 
-class FeatureListViewModel implements AsyncViewModel{
+class FeatureListViewModel implements AsyncViewModel {
   @override
   final AsyncInfo asyncStatus;
   @override
@@ -15,7 +15,8 @@ class FeatureListViewModel implements AsyncViewModel{
   final String title;
   final String subtitle;
   final List<String> subFeatures;
-  
+  final String? floatingFeatureUri;
+  final String? headerType;
 
   factory FeatureListViewModel.error(Exception exception, Function refresh) {
     return FeatureListViewModel(
@@ -30,6 +31,8 @@ class FeatureListViewModel implements AsyncViewModel{
     this.title = _Constants.emptyString,
     this.subtitle = _Constants.emptyString,
     this.subFeatures = const <String>[],
+    this.floatingFeatureUri,
+    this.headerType,
     this.refresh,
   });
 }

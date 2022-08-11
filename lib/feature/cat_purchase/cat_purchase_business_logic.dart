@@ -1,5 +1,5 @@
 import 'package:feature_based_app/common/async_viewmodel.dart';
-import 'package:feature_based_app/features/cat_purchase/cat_purchase_viewmodel.dart';
+import 'package:feature_based_app/feature/cat_purchase/cat_purchase_viewmodel.dart';
 import 'package:flutter/foundation.dart';
 
 class _Constants {

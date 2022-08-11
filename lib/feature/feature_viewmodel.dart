@@ -11,9 +11,12 @@ class FeatureViewModel implements AsyncViewModel {
   @override
   final Function? refresh;
   final String uri;
+  final String? floatingFeatureUri;
+  final String? iconUri;
   final String type;
   final String title;
   final String subtitle;
+  final Map<String, dynamic>? config;
 
   const FeatureViewModel({
     this.uri = _Constants.unknown,
@@ -21,7 +24,10 @@ class FeatureViewModel implements AsyncViewModel {
     this.asyncStatus = const AsyncInfo(),
     this.title = _Constants.emptyString,
     this.subtitle = _Constants.emptyString,
+    this.config,
     this.refresh,
+    this.floatingFeatureUri,
+    this.iconUri,
   });
 
   factory FeatureViewModel.error(

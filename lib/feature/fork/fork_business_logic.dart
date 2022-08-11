@@ -4,9 +4,9 @@ import 'package:feature_based_app/common/async_viewmodel.dart';
 import 'package:feature_based_app/common/cast_utilities.dart';
 import 'package:feature_based_app/common/repository/repository.dart';
 import 'package:feature_based_app/common/repository/transformer.dart';
-import 'package:feature_based_app/feature/feature_model.dart';
+import 'package:feature_based_app/feature/feature_entity.dart';
 import 'package:feature_based_app/feature/feature_transformer.dart';
-import 'package:feature_based_app/features/fork/fork_viewmodel.dart';
+import 'package:feature_based_app/feature/fork/fork_viewmodel.dart';
 import 'package:flutter/widgets.dart';
 
 class _Constants {
@@ -18,7 +18,7 @@ class _Fields {
 }
 
 class ForkBusinessLogic extends ValueNotifier<ForkViewModel>
-    implements Transformer<Feature, ForkViewModel, String> {
+    implements Transformer<FeatureEntity, ForkViewModel, String> {
   ForkBusinessLogic(
     this.uri,
     this.repository,
@@ -27,10 +27,10 @@ class ForkBusinessLogic extends ValueNotifier<ForkViewModel>
   }
 
   final String uri;
-  final Repository<Feature> repository;
+  final Repository<FeatureEntity> repository;
   final featureTransformer = FeatureTransformer();
 
-  StreamSubscription<Feature>? _subscription;
+  StreamSubscription<FeatureEntity>? _subscription;
 
   static final unknownException = Exception('Unknown FeatureBloc Exception');
 
@@ -44,14 +44,15 @@ class ForkBusinessLogic extends ValueNotifier<ForkViewModel>
     });
   }
 
-  Future<Feature?> refresh() {
-    return repository.single(uri).then((value) {
-      update(feature: value);
-      return value;
-    }, onError: (error) {
+  Future<FeatureEntity?> refresh() async {
+    try {
+      final feature = await repository.single(uri);
+      update(feature: feature);
+      return feature;
+    } catch (error) {
       _updateWithError(error);
       return null;
-    });
+    }
   }
 
   void _updateWithError(dynamic error) {
@@ -65,7 +66,7 @@ class ForkBusinessLogic extends ValueNotifier<ForkViewModel>
   }
 
   void update({
-    Feature? feature,
+    FeatureEntity? feature,
     Exception? exception,
   }) {
     if (exception != null) {
@@ -80,13 +81,13 @@ class ForkBusinessLogic extends ValueNotifier<ForkViewModel>
 
   @override
   ForkViewModel transform(
-    Feature object, {
+    FeatureEntity object, {
     String? identifier,
   }) {
     final uri = identifier!;
-    final variants = castOrNull<Map<String, dynamic>>(
-            object.config[_Fields.variants]) ??
-        {};
+    final variants =
+        castOrNull<Map<String, dynamic>>(object.config?[_Fields.variants]) ??
+            {};
     final variantFeatures = Map<String, String>.from(variants);
     return ForkViewModel(
       uri: uri,
@@ -96,6 +97,12 @@ class ForkBusinessLogic extends ValueNotifier<ForkViewModel>
       refresh: () => refresh,
       variants: variantFeatures,
     );
+  }
+
+  @override
+  FeatureEntity reverseTransform(ForkViewModel object, {String? identifier}) {
+    // TODO: implement reverseTransform
+    throw UnimplementedError();
   }
 
   @override

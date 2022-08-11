@@ -1,3 +1,4 @@
+import 'package:feature_based_app/common/object_scope.dart';
 import 'package:flutter/widgets.dart';
 import 'cast_utilities.dart';
 
@@ -12,12 +13,14 @@ import 'cast_utilities.dart';
 
 typedef ProviderBuilder = dynamic Function(Object?);
 
-class ProviderRepository {
-  final ProviderRepository? fallback;
+final _NoContext = 'no_context';
+
+class ProviderFactory {
+  final ProviderFactory? fallback;
   final Map<Type, Map> _providerCache = <Type, Map>{};
   final Map<Type, ProviderBuilder> _builders = <Type, ProviderBuilder>{};
 
-  ProviderRepository({this.fallback});
+  ProviderFactory({this.fallback});
 
   Map _providerCacheFor(Type type) {
     final typeCache = _providerCache[type];
@@ -30,13 +33,14 @@ class ProviderRepository {
   }
 
   ValueNotifier<T> providerOf<T>({Object? context}) {
+    final cacheKey = context ?? _NoContext;
     var typeCache = _providerCacheFor(T);
     final cached = castOrNull<ValueNotifier<T>>(
-      typeCache[context],
+      typeCache[cacheKey],
     );
     final provider = cached ?? _builders[T]?.call(context);
     if (provider != null) {
-      typeCache[context] = provider;
+      typeCache[cacheKey] = provider;
       return castAssert<ValueNotifier<T>>(provider);
     }
     final fallbackProvider = fallback?.providerOf<T>(context: context);
@@ -53,28 +57,18 @@ class ProviderRepository {
     _builders.remove(T);
   }
 
-  static final ProviderRepository global = ProviderRepository();
-}
-
-// This class provides a way to provide a different provider repository
-// to all widgets beneath
-class ProviderRepositoryScope extends InheritedWidget {
-  final ProviderRepository repository;
-
-  ProviderRepositoryScope({
-    Key? key,
-    required this.repository,
-    required Widget child,
-  }) : super(key: key, child: child);
-
-  @override
-  bool updateShouldNotify(covariant ProviderRepositoryScope oldWidget) {
-    return oldWidget.repository != repository;
+  bool hasProvider<T>() {
+    return _builders[T] != null;
   }
 
-  static ProviderRepository? repositoryOf(BuildContext context) {
-    final result =
-        context.dependOnInheritedWidgetOfExactType<ProviderRepositoryScope>();
-    return result?.repository;
+  static final ProviderFactory global = ProviderFactory();
+
+  static ValueNotifier<T> getProvider<T>(
+    BuildContext context,
+    Object? objectContext,
+  ) {
+    final repository =
+        Scope.of<ProviderFactory>(context)?.value ?? ProviderFactory.global;
+    return repository.providerOf<T>(context: objectContext);
   }
 }

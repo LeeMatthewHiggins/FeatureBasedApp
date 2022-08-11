@@ -5,4 +5,9 @@ abstract class Transformer<F, T, I> {
     F object, {
     I? identifier,
   });
+
+  F reverseTransform(
+    T object, {
+    I? identifier,
+  });
 }

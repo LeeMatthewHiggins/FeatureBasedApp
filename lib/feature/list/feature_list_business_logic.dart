@@ -1,7 +1,7 @@
 import 'dart:async';
 
-import 'package:feature_based_app/feature/feature_model.dart';
-import 'package:feature_based_app/features/list/feature_list_viewmodel.dart';
+import 'package:feature_based_app/feature/feature_entity.dart';
+import 'package:feature_based_app/feature/list/feature_list_viewmodel.dart';
 import 'package:flutter/foundation.dart';
 import 'package:feature_based_app/common/repository/repository.dart';
 import 'package:feature_based_app/common/repository/transformer.dart';
@@ -15,10 +15,12 @@ class _Constants {
 
 class _Fields {
   static const subFeatures = 'subFeatures';
+  static const floatingFeature = 'floatingFeature';
+  static const headerType = 'header';
 }
 
 class FeatureListBusinessLogic extends ValueNotifier<FeatureListViewModel>
-    implements Transformer<Feature, FeatureListViewModel, String> {
+    implements Transformer<FeatureEntity, FeatureListViewModel, String> {
   FeatureListBusinessLogic(
     this.uri,
     this.repository,
@@ -27,10 +29,10 @@ class FeatureListBusinessLogic extends ValueNotifier<FeatureListViewModel>
   }
 
   final String uri;
-  final Repository<Feature> repository;
+  final Repository<FeatureEntity> repository;
   final featureTransformer = FeatureTransformer();
 
-  StreamSubscription<Feature>? _subscription;
+  StreamSubscription<FeatureEntity>? _subscription;
 
   static final unknownException = Exception('Unknown FeatureBloc Exception');
 
@@ -44,14 +46,15 @@ class FeatureListBusinessLogic extends ValueNotifier<FeatureListViewModel>
     });
   }
 
-  Future<Feature?> refresh() {
-    return repository.single(uri).then((value) {
-      update(feature: value);
-      return value;
-    }, onError: (error) {
+  Future<FeatureEntity?> refresh() async {
+    try {
+      final feature = await repository.single(uri);
+      update(feature: feature);
+      return feature;
+    } catch (error) {
       _updateWithError(error);
-      return null;
-    });
+      return Future.error(error);
+    }
   }
 
   void _updateWithError(dynamic error) {
@@ -65,7 +68,7 @@ class FeatureListBusinessLogic extends ValueNotifier<FeatureListViewModel>
   }
 
   void update({
-    Feature? feature,
+    FeatureEntity? feature,
     Exception? exception,
   }) {
     if (exception != null) {
@@ -80,12 +83,18 @@ class FeatureListBusinessLogic extends ValueNotifier<FeatureListViewModel>
 
   @override
   FeatureListViewModel transform(
-    Feature object, {
+    FeatureEntity object, {
     String? identifier,
   }) {
     final uri = identifier!;
     final subFeatures = castListOrNull<String>(
-      object.config[_Fields.subFeatures],
+      object.config?[_Fields.subFeatures],
+    );
+    final headerType = castOrNull<String>(
+      object.config?[_Fields.headerType],
+    );
+    final actionFeature = castOrNull<String>(
+      object.config?[_Fields.floatingFeature],
     );
     return FeatureListViewModel(
         uri: uri,
@@ -94,7 +103,16 @@ class FeatureListBusinessLogic extends ValueNotifier<FeatureListViewModel>
         subtitle: object.subtitle ?? _Constants.emptyString,
         asyncStatus: AsyncInfo.complete(),
         refresh: () => refresh,
-        subFeatures: subFeatures);
+        subFeatures: subFeatures,
+        floatingFeatureUri: actionFeature,
+        headerType: headerType);
+  }
+
+  @override
+  FeatureEntity reverseTransform(FeatureListViewModel object,
+      {String? identifier}) {
+    // TODO: implement reverseTransform
+    throw UnimplementedError();
   }
 
   @override

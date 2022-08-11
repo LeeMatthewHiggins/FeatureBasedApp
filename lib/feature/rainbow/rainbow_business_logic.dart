@@ -1,9 +1,8 @@
 import 'package:feature_based_app/common/async_viewmodel.dart';
-import 'package:feature_based_app/features/rainbow/rainbow_viewmodel.dart';
+import 'package:feature_based_app/feature/rainbow/rainbow_viewmodel.dart';
 import 'package:flutter/widgets.dart';
 
 class RainbowBusinessLogic extends ValueNotifier<RainbowViewModel> {
-  
   RainbowBusinessLogic() : super(RainbowViewModel()) {
     setup();
   }
@@ -15,7 +14,8 @@ class RainbowBusinessLogic extends ValueNotifier<RainbowViewModel> {
   }
 
   void _update(int color) {
-    value = RainbowViewModel(asyncStatus: AsyncInfo.complete(),
+    value = RainbowViewModel(
+      asyncStatus: AsyncInfo.complete(),
       changeToColor: _changeColor,
       hexColor: color,
     );
@@ -24,5 +24,4 @@ class RainbowBusinessLogic extends ValueNotifier<RainbowViewModel> {
   void _changeColor(int color) {
     _update(color);
   }
-
 }
